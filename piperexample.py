@@ -7,6 +7,7 @@ from piper.pipeline import pipeline
 async def main():
   p = pipeline() \
     .flatmap() \
+    .map(lambda x: ">{}<".format(x)) \
     .end()
   await p.process([1,2,3,4,5])
 

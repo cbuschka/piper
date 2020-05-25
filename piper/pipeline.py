@@ -1,6 +1,7 @@
 from .graph import Graph, Node
 from .processing import Processor
 from .flat_map_node import FlatMapNode
+from .map_node import MapNode
  
 
 class Pipeline(object):
@@ -17,6 +18,12 @@ class PipelineBuilder(object):
     self.graph = Graph()
     self.graph.add_node(Node("start"))
     self.prev_node = "start"
+
+  def map(self, mapper):
+    new_node_id = "map"
+    self.graph.add_node(MapNode(new_node_id, [self.prev_node], mapper))
+    self.prev_node = new_node_id
+    return self
 
   def flatmap(self):
     new_node_id = "flatmap"
